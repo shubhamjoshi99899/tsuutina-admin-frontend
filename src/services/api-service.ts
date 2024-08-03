@@ -85,7 +85,7 @@ class ApiService {
 
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: 'http://localhost:3000/api', // Replace with your base URL
+      baseURL: 'https://tsuutina-admin.vercel.app/api', // Replace with your base URL
     });
   }
 
@@ -226,6 +226,9 @@ class ApiService {
     return this.axiosInstance.put(`/forms/${id}`, form);
   }
 
+  setFormAsCurrent(id: string): Promise<AxiosResponse<ApiResponse<Form>>> {
+    return this.axiosInstance.put(`/forms/setCurrent/${id}`);
+  }
   deleteForm(id: string): Promise<AxiosResponse<ApiResponse<null>>> {
     return this.axiosInstance.delete(`/forms/${id}`);
   }
@@ -233,6 +236,16 @@ class ApiService {
   getResponsesByFormId(formId: string): Promise<AxiosResponse<ApiResponse<Response[]>>> {
     return this.axiosInstance.get(`/responses/form/${formId}`);
   }
+
+  createResponse(formId: string, responses: Record<string, string>): Promise<AxiosResponse<ApiResponse<Response>>> {
+    const body = {formId, responses}
+    return this.axiosInstance.post(`/responses`, body);
+  }
+  
+  fetchCountByFormId(formId: string): Promise<AxiosResponse<ApiResponse<Response>>>{
+    return this.axiosInstance.get(`/responses/count/form/${formId}`);
+  }
+
 }
 
 export default new ApiService();

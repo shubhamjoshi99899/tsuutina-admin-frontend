@@ -1,45 +1,74 @@
 import React, { useEffect, useState } from 'react';
-// import jsPDF from 'jspdf';
-
-// import 'jspdf-autotable';
-
+import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import axios from 'axios';
 import apiService from '@/services/api-service';
-import { Button } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { useParams } from 'next/navigation';
 
-interface ViewResponsesProps {
+interface ResponseData {
+  _id: string;
   formId: string;
+  responses: Record<string, string>;
+  createdAt: string;
 }
 
-const ViewResponses: React.FC<ViewResponsesProps> = ({ formId }) => {
-  const [responses, setResponses] = useState<any[]>([]);
+const ResponsesTable: React.FC = () => {
+  const [data, setData] = useState<ResponseData[]>([]);
+  const [columns, setColumns] = useState<string[]>([]);
+  const params = useParams();
+  const formId = params.id as string;
+
 
   useEffect(() => {
-    apiService.getResponsesByFormId(formId).then((response) => {
-      const { data } = response.data;
-      setResponses(data);
-    });
-  }, [formId]);
+    const fetchResponses = async () => {
+      try {
+        const response = await apiService.getResponsesByFormId(formId); // Replace with your actual API endpoint
+        const responseData: any[] =  response.data.data;
+        setData(responseData);
 
-  const columns: GridColDef[] = [
-    { field: 'formId', headerName: 'Form ID', width: 150 },
-    { field: 'responses', headerName: 'Responses', width: 500 },
-  ];
+        if (responseData.length > 0) {
+          const dynamicColumns = Object.keys(responseData[0].responses).concat([ 'createdAt']);
+          setColumns(dynamicColumns);
+        }
+      } catch (error) {
+        console.error('Error fetching responses:', error);
+      }
+    };
 
-  //   const handleDownloadPdf = () => {
-  //     const doc = new jsPDF();
-  //     doc.autoTable({ html: '#responses-table' });
-  //     doc.save('responses.pdf');
-  //   };
+    fetchResponses();
+  }, []);
 
   return (
-    <div>
-      <Button variant="contained">Download PDF</Button>
-      <div style={{ height: 400, width: '100%', marginTop: '20px' }}>
-        {/* <DataGrid rows={responses} columns={columns} getRowId={() => formId} /> */}
-      </div>
-    </div>
+    <Container>
+      <Typography variant="h4" my={2}>
+        Responses
+      </Typography>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell key={column}>
+                  {column.replace(/_/g, ' ')}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((row) => (
+              <TableRow key={row._id}>
+                {columns.map((column) => (
+                  <TableCell key={column}>
+                  {column === 'createdAt' && new Date(row[column as keyof ResponseData] as string).toLocaleString()}
+                  {column !== '_id' && column !== 'formId' && column !== 'createdAt' && (row.responses[column] ?? '')}
+                </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 };
 
-export default ViewResponses;
+export default ResponsesTable;
