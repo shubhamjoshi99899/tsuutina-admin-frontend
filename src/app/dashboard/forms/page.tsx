@@ -19,7 +19,7 @@ export default function ManageForms(): React.JSX.Element {
   const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
   const [forms, setForms] = useState<any[]>([]);
   const [currentForm, setCurrentForm] = useState<any | null>(null);
-const [responseCounts, setResponseCounts] = useState<{ [key: string]: number }>({});
+const [responseCounts, setResponseCounts] = useState<Record<string, number>>({});
 
   const router = useRouter();
   const handleAddFormClick = () => {
@@ -125,7 +125,7 @@ useEffect(() => {
           <Grid item xs={12} md={6} lg={12}>
             <Card sx={{border: form.isActive ? '1px solid green' : 'none', background: form.isActive ? '#F5FFFA' : '#FFF0F5'}}>
               <CardContent>
-                <Stack direction="row" justifyContent="space-between" alignItems={'center'}>
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
                   <Box>
                   <Typography variant="h6">{form.title}</Typography>
                   <Typography variant="body2">{form.description}</Typography>
@@ -139,13 +139,13 @@ useEffect(() => {
                 </Stack>
     
                 <Stack direction="row" spacing={2}>
-                <Button variant="contained" color="primary" disabled={form.isActive===true} onClick={() => setCurrentForm(form._id)} sx={{ mt: 2 }}>
+                <Button variant="contained" color="primary" disabled={form.isActive===true} onClick={() => { setCurrentForm(form._id); }} sx={{ mt: 2 }}>
                 Set as Current
               </Button>
               <Button variant="contained" color="primary" onClick={() =>{handleEditFormClick(form)}} sx={{ mt: 2 }}>
                 Edit
               </Button>
-              <Button variant="contained" color="primary" onClick={() => handlePreviewFormClick(form)} sx={{ mt: 2 }}>
+              <Button variant="contained" color="primary" onClick={() => { handlePreviewFormClick(form); }} sx={{ mt: 2 }}>
                 Preview
               </Button>
               </Stack>
@@ -155,16 +155,14 @@ useEffect(() => {
         ))}
      
       </Grid>
-      {selectedForm && (
-        <EditForm
+      {selectedForm ? <EditForm
           open={editFormOpen}
           onClose={() => {
             setEditFormOpen(false);
           }}
           form={selectedForm}
           onUpdate={handleUpdate}
-        />
-      )}
+        /> : null}
     </Container>
   );
 }

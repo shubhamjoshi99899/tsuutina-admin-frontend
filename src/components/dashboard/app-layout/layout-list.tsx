@@ -84,7 +84,7 @@ export default function LayoutList({ onEditLayoutClick, refreshTrigger }: Layout
 
   return (
     <Container maxWidth="xl">
-      {error && <Typography color="error">{error}</Typography>}
+      {error ? <Typography color="error">{error}</Typography> : null}
       {layouts.length === 0 && <Typography>No layouts found</Typography>}
       <Grid container spacing={10}>
         {layouts.map((layout) => (
@@ -98,12 +98,12 @@ export default function LayoutList({ onEditLayoutClick, refreshTrigger }: Layout
                 background: layout?.isCurrentlySet ? '#F5FFFA' : '#FFF0F5',
               }}
             >
-              <Stack direction="row" justifyContent={'space-between'} alignItems={'center'}>
+              <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <Box>
                   <Typography fontWeight={700}>{layout.name}</Typography>
                   <Typography>{layout.routes.map((route) => route.name).join(', ')}</Typography>
                 </Box>
-                <IconButton onClick={() => handleDeleteLayout(layout._id)}>
+                <IconButton onClick={() => { handleDeleteLayout(layout._id); }}>
                   <DeleteIcon color="error" />
                 </IconButton>
               </Stack>

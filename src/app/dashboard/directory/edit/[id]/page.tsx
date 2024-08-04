@@ -17,7 +17,7 @@ interface DirectoryItem {
   iframe: string;
 }
 
-const EditDirectoryPage = (): React.JSX.Element => {
+function EditDirectoryPage(): React.JSX.Element {
   const router = useRouter();
   const { id } = useParams();
   const [directory, setDirectory] = useState<DirectoryItem | null>(null);
@@ -44,7 +44,7 @@ const EditDirectoryPage = (): React.JSX.Element => {
 
   const handleSave = async () => {
     try {
-      if (directory && directory._id) {
+      if (directory?._id) {
         await apiService.updateDirectoryItem(directory._id, directory);
         router.push(`/dashboard/directory`);
       }
@@ -74,35 +74,35 @@ const EditDirectoryPage = (): React.JSX.Element => {
         label="Name"
         fullWidth
         value={directory.name}
-        onChange={(e) => setDirectory({ ...directory, name: e.target.value })}
+        onChange={(e) => { setDirectory({ ...directory, name: e.target.value }); }}
         sx={{ mb: 2 }}
       />
       <TextField
         label="Address"
         fullWidth
         value={directory.address}
-        onChange={(e) => setDirectory({ ...directory, address: e.target.value })}
+        onChange={(e) => { setDirectory({ ...directory, address: e.target.value }); }}
         sx={{ mb: 2 }}
       />
       <TextField
         label="Phone"
         fullWidth
         value={directory.phoneNumber}
-        onChange={(e) => setDirectory({ ...directory, phoneNumber: e.target.value })}
+        onChange={(e) => { setDirectory({ ...directory, phoneNumber: e.target.value }); }}
         sx={{ mb: 2 }}
       />
       <TextField
         label="Website"
         fullWidth
         value={directory.website}
-        onChange={(e) => setDirectory({ ...directory, website: e.target.value })}
+        onChange={(e) => { setDirectory({ ...directory, website: e.target.value }); }}
         sx={{ mb: 2 }}
       />
       <TextField
         label="Hours"
         fullWidth
         value={directory.hours}
-        onChange={(e) => setDirectory({ ...directory, hours: e.target.value })}
+        onChange={(e) => { setDirectory({ ...directory, hours: e.target.value }); }}
         sx={{ mb: 2 }}
       />
       <TextField
@@ -111,7 +111,7 @@ const EditDirectoryPage = (): React.JSX.Element => {
         multiline
         rows={4}
         value={directory.iframe}
-        onChange={(e) => setDirectory({ ...directory, iframe: e.target.value })}
+        onChange={(e) => { setDirectory({ ...directory, iframe: e.target.value }); }}
         sx={{ mb: 2 }}
       />
       <Box sx={{ mt: 2 }}>
@@ -122,6 +122,6 @@ const EditDirectoryPage = (): React.JSX.Element => {
       </Button>
     </Container>
   );
-};
+}
 
 export default EditDirectoryPage;

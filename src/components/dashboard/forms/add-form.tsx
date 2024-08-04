@@ -83,7 +83,7 @@ const AddFormComponent: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const result = await apiService.createForm(form);
-    if(result.data.success === true){
+    if(result.data.success){
       alert("Form created successfully");
       router.push("/dashboard/forms");
     }
@@ -121,7 +121,7 @@ const AddFormComponent: React.FC = () => {
                 label="Label"
                 name="label"
                 value={field.label}
-                onChange={(event) => handleFieldChange(index, event)}
+                onChange={(event) => { handleFieldChange(index, event); }}
                 margin="normal"
                 required
               />
@@ -129,7 +129,7 @@ const AddFormComponent: React.FC = () => {
                 label="Type"
                 name="type"
                 value={field.type}
-                onChange={(event) => handleFieldChange(index, event)}
+                onChange={(event) => { handleFieldChange(index, event); }}
                 margin="normal"
                 select
                 required
@@ -141,7 +141,7 @@ const AddFormComponent: React.FC = () => {
                 <MenuItem value="email">Email</MenuItem>
               </TextField>
               
-              <IconButton onClick={() => removeField(index)} style={{ marginLeft: '1rem' }}>
+              <IconButton onClick={() => { removeField(index); }} style={{ marginLeft: '1rem' }}>
                 <Delete color="error" />
               </IconButton>
             </Box>
@@ -152,16 +152,16 @@ const AddFormComponent: React.FC = () => {
                     <TextField
                       label={`Option ${optionIndex + 1}`}
                       value={option}
-                      onChange={(event) => handleOptionChange(index, optionIndex, event)}
+                      onChange={(event) => { handleOptionChange(index, optionIndex, event); }}
                       margin="normal"
                       required
                     />
-                    <IconButton onClick={() => removeOption(index, optionIndex)}>
+                    <IconButton onClick={() => { removeOption(index, optionIndex); }}>
                       <Remove />
                     </IconButton>
                   </Box>
                 ))}
-                <Button variant="contained" color="primary" onClick={() => addOption(index)} startIcon={<Add />}>
+                <Button variant="contained" color="primary" onClick={() => { addOption(index); }} startIcon={<Add />}>
                   Add Option
                 </Button>
               </Box>

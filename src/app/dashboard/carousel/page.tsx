@@ -35,7 +35,7 @@ interface CarouselType {
   isActive: boolean;
 }
 
-const CarouselListPage = (): React.JSX.Element => {
+function CarouselListPage(): React.JSX.Element {
   const [carousels, setCarousels] = useState<CarouselType[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -87,8 +87,8 @@ const CarouselListPage = (): React.JSX.Element => {
 
   return (
     <Container maxWidth="xl">
-      {error && <Typography color="error">{error}</Typography>}
-      <Stack direction={'row'} justifyContent={'space-between'}>
+      {error ? <Typography color="error">{error}</Typography> : null}
+      <Stack direction="row" justifyContent="space-between">
         <Typography variant="h4" sx={{ mb: 3 }}>
           Carousels
         </Typography>
@@ -105,7 +105,7 @@ const CarouselListPage = (): React.JSX.Element => {
           <Grid item xs={12} sm={6} md={4} key={carousel._id}>
             <Card sx={{ p: 1, height: 350 }}>
               <CardContent>
-                <Stack direction="row" justifyContent="space-between" alignItems={'center'}>
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
                   <Typography variant="h6">{carousel.name}</Typography>
                   <Button
                     variant="contained"
@@ -138,6 +138,6 @@ const CarouselListPage = (): React.JSX.Element => {
       </Grid>
     </Container>
   );
-};
+}
 
 export default CarouselListPage;

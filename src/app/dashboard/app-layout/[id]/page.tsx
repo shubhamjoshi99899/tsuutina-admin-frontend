@@ -36,7 +36,7 @@ export default function LayoutDetails(): React.JSX.Element {
   const handleToggleRouteUsage = async (isCurrentlyUsed: boolean, layout_id?: string, route_id?: string) => {
     if (route_id && layout_id) {
       try {
-        const response = await apiService.updateLayoutRoute(layout_id, route_id, { isCurrentlyUsed: isCurrentlyUsed });
+        const response = await apiService.updateLayoutRoute(layout_id, route_id, { isCurrentlyUsed });
         if (response.data.success) {
           setLayout((prevLayout) => {
             if (!prevLayout) return prevLayout;
@@ -59,7 +59,7 @@ export default function LayoutDetails(): React.JSX.Element {
   const fetchLayout = async (id: string) => {
     if (id) {
       apiService
-        .getLayoutById(id as string)
+        .getLayoutById(id)
         .then((response: AxiosResponse<ApiResponse<Layout>>) => {
           setLayout(response.data.data);
         })
@@ -105,7 +105,7 @@ export default function LayoutDetails(): React.JSX.Element {
           />
         </Card>
       ))}
-      <Button variant="contained" color="primary" onClick={() => router.back()}>
+      <Button variant="contained" color="primary" onClick={() => { router.back(); }}>
         Back
       </Button>
     </Box>

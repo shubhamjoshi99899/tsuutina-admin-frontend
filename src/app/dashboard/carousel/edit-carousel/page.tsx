@@ -19,7 +19,7 @@ interface CarouselType {
   isActive: boolean;
 }
 
-const EditCarouselPage = (): React.JSX.Element => {
+function EditCarouselPage(): React.JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
@@ -87,12 +87,12 @@ const EditCarouselPage = (): React.JSX.Element => {
 
   return (
     <Container>
-      {error && <Typography color="error">{error}</Typography>}
+      {error ? <Typography color="error">{error}</Typography> : null}
       <Typography variant="h4" sx={{ mb: 3 }}>
         Edit Carousel
       </Typography>
       <Box sx={{ mb: 3 }}>
-        <TextField label="Carousel Name" fullWidth value={name} onChange={(e) => setName(e.target.value)} />
+        <TextField label="Carousel Name" fullWidth value={name} onChange={(e) => { setName(e.target.value); }} />
       </Box>
 
       {images.map((image, index) => (
@@ -101,9 +101,9 @@ const EditCarouselPage = (): React.JSX.Element => {
             label="Image URL"
             fullWidth
             value={image.url}
-            onChange={(e) => handleImageChange(index, e.target.value)}
+            onChange={(e) => { handleImageChange(index, e.target.value); }}
           />
-          <IconButton onClick={() => handleRemoveImage(index)}>
+          <IconButton onClick={() => { handleRemoveImage(index); }}>
             <RemoveIcon />
           </IconButton>
         </Box>
@@ -113,7 +113,7 @@ const EditCarouselPage = (): React.JSX.Element => {
           label="New Image URL"
           fullWidth
           value={newImageUrl}
-          onChange={(e) => setNewImageUrl(e.target.value)}
+          onChange={(e) => { setNewImageUrl(e.target.value); }}
           onBlur={handleAddImage}
         />
         <IconButton onClick={handleAddImage}>
@@ -124,14 +124,14 @@ const EditCarouselPage = (): React.JSX.Element => {
         <Button variant="contained" color="primary" onClick={handleSave}>
           Save Carousel
         </Button>
-        <Button variant="outlined" onClick={() => router.back()}>
+        <Button variant="outlined" onClick={() => { router.back(); }}>
           Cancel
         </Button>
         <Button
           onClick={() =>
-            router.push(
+            { router.push(
               'https://www.google.com/maps/place/Grey+Eagle+Resort+and+Casino/@51.0074946,-114.1472472,17z/data=!3m1!4b1!4m9!3m8!1s0x537171edbde2ad0d:0x9ecba17eab6c70f2!5m2!4m1!1i2!8m2!3d51.0074946!4d-114.1472472!16s%2Fg%2F1tc_8bgd?entry=ttu'
-            )
+            ); }
           }
           variant="contained"
         >
@@ -140,6 +140,6 @@ const EditCarouselPage = (): React.JSX.Element => {
       </Stack>
     </Container>
   );
-};
+}
 
 export default EditCarouselPage;

@@ -28,7 +28,7 @@ interface HistoryItem {
   isCurrentlyVisible: boolean;
 }
 
-const HistoryManagementPage = (): React.JSX.Element => {
+function HistoryManagementPage(): React.JSX.Element {
   const [historyItems, setHistoryItems] = useState<HistoryItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<HistoryItem | null>(null);
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
@@ -103,13 +103,13 @@ const HistoryManagementPage = (): React.JSX.Element => {
 
   return (
     <Container maxWidth="xl">
-      {error && <Typography color="error">{error}</Typography>}
-      <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+      {error ? <Typography color="error">{error}</Typography> : null}
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography variant="h4" sx={{ mb: 3 }}>
           History Management
         </Typography>
         <Box sx={{ mb: 3 }}>
-          <Button variant="contained" onClick={() => setDialogOpen(true)}>
+          <Button variant="contained" onClick={() => { setDialogOpen(true); }}>
             Add New History Item
           </Button>
         </Box>
@@ -150,7 +150,7 @@ const HistoryManagementPage = (): React.JSX.Element => {
           </Stack>
         </Card>
       ))}
-      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+      <Dialog open={dialogOpen} onClose={() => { setDialogOpen(false); }}>
         <DialogTitle>{selectedItem ? 'Edit History Item' : 'Add New History Item'}</DialogTitle>
         <DialogContent>
           <TextField
@@ -265,6 +265,6 @@ const HistoryManagementPage = (): React.JSX.Element => {
       </Dialog>
     </Container>
   );
-};
+}
 
 export default HistoryManagementPage;

@@ -87,7 +87,7 @@ export function AddLayoutForm({ open, onClose, onAdd }: AddLayoutFormProps): Rea
               }}
             />
             <div>
-              <IconButton onClick={() => handleRemoveRoute(index)}>
+              <IconButton onClick={() => { handleRemoveRoute(index); }}>
                 <RemoveIcon />
               </IconButton>
               <IconButton onClick={handleAddRoute}>

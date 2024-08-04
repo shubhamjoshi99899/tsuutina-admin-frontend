@@ -114,26 +114,26 @@ function EditForm(): React.JSX.Element {
         <InputLabel>Title</InputLabel>
         <TextField
           value={form.title}
-          onChange={(e) => setForm({ ...form, title: e.target.value })}
+          onChange={(e) => { setForm({ ...form, title: e.target.value }); }}
           fullWidth
           margin="normal"
         />
         <InputLabel>Description</InputLabel>
         <TextField
           value={form.description}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
+          onChange={(e) => { setForm({ ...form, description: e.target.value }); }}
           fullWidth
           margin="normal"
         />
         <Typography my={2} variant="h6">Fields</Typography>
         {form?.fields?.map((field, index) => (
           <Box key={index} marginY={1} sx={{ border: '1px solid #ccc', borderRadius: '5px', p: 2 }}>
-            <Grid container spacing={2} alignItems={'baseline'}>
+            <Grid container spacing={2} alignItems="baseline">
               <Grid item xs={12} md={3}>
                 <InputLabel>Label</InputLabel>
                 <TextField
                   value={field.label}
-                  onChange={(e) => handleFieldChange(index, 'label', e.target.value)}
+                  onChange={(e) => { handleFieldChange(index, 'label', e.target.value); }}
                   margin="normal"
                   fullWidth
                 />
@@ -144,7 +144,7 @@ function EditForm(): React.JSX.Element {
                   <TextField
                     name="type"
                     value={field.type}
-                    onChange={(e) => handleFieldChange(index, 'type', e.target.value)}
+                    onChange={(e) => { handleFieldChange(index, 'type', e.target.value); }}
                     margin="normal"
                     select
                     fullWidth
@@ -164,16 +164,16 @@ function EditForm(): React.JSX.Element {
                         <TextField
                           label={`Option ${optionIndex + 1}`}
                           value={option}
-                          onChange={(event) => handleOptionChange(index, optionIndex, event)}
+                          onChange={(event) => { handleOptionChange(index, optionIndex, event); }}
                           margin="normal"
                           required
                         />
-                        <IconButton onClick={() => removeOption(index, optionIndex)}>
+                        <IconButton onClick={() => { removeOption(index, optionIndex); }}>
                           <Remove />
                         </IconButton>
                       </Box>
                     ))}
-                    <Button variant="contained" color="primary" onClick={() => addOption(index)} startIcon={<Add />}>
+                    <Button variant="contained" color="primary" onClick={() => { addOption(index); }} startIcon={<Add />}>
                       Add Option
                     </Button>
                   </Box>
@@ -186,7 +186,7 @@ function EditForm(): React.JSX.Element {
                     <Checkbox
                       checked={field.required}
                       onChange={(e) =>
-                        handleFieldChange(index, 'required', e.target.checked)
+                        { handleFieldChange(index, 'required', e.target.checked); }
                       }
                       sx={{ ml: 2, p: 4 }}
                     />
@@ -200,7 +200,7 @@ function EditForm(): React.JSX.Element {
                   row
                   value={field.isActive ? 'active' : 'inactive'}
                   onChange={(e) =>
-                    handleFieldChange(index, 'isActive', e.target.value === 'active')
+                    { handleFieldChange(index, 'isActive', e.target.value === 'active'); }
                   }
                   sx={{ ml: 2, p: 4 }}
                 >
@@ -216,16 +216,16 @@ function EditForm(): React.JSX.Element {
                   />
                 </RadioGroup>
               </Grid>
-              <Grid item xs={12} md={1} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+              <Grid item xs={12} md={1} display="flex" justifyContent="center" alignItems="center">
                 <Typography>Delete</Typography>
-                <IconButton onClick={() => handleRemoveField(index)}>
+                <IconButton onClick={() => { handleRemoveField(index); }}>
                   <Delete color='error' />
                 </IconButton>
               </Grid>
             </Grid>
           </Box>
         ))}
-        <Stack direction={'row'} spacing={2}>
+        <Stack direction="row" spacing={2}>
           <Button onClick={handleAddField} startIcon={<Add />}>
             Add Field
           </Button>

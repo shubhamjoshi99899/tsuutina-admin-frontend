@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import apiService, { Form } from '@/services/api-service';
+import apiService, { type Form } from '@/services/api-service';
 import { Button, Card, Grid, Stack, Typography } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 

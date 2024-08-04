@@ -11,7 +11,7 @@ interface Image {
   isVisible: boolean;
 }
 
-const AddCarouselPage = (): React.JSX.Element => {
+function AddCarouselPage(): React.JSX.Element {
   const router = useRouter();
   const [name, setName] = useState<string>('');
   const [images, setImages] = useState<Image[]>([{ url: '', isVisible: true }]);
@@ -48,12 +48,12 @@ const AddCarouselPage = (): React.JSX.Element => {
 
   return (
     <Container>
-      {error && <Typography color="error">{error}</Typography>}
+      {error ? <Typography color="error">{error}</Typography> : null}
       <Typography variant="h4" sx={{ mb: 3 }}>
         Add New Carousel
       </Typography>
       <Box sx={{ mb: 3 }}>
-        <TextField label="Carousel Name" fullWidth value={name} onChange={(e) => setName(e.target.value)} />
+        <TextField label="Carousel Name" fullWidth value={name} onChange={(e) => { setName(e.target.value); }} />
       </Box>
       {images.map((image, index) => (
         <Box key={index} sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
@@ -61,9 +61,9 @@ const AddCarouselPage = (): React.JSX.Element => {
             label="Image URL"
             fullWidth
             value={image.url}
-            onChange={(e) => handleImageChange(index, e.target.value)}
+            onChange={(e) => { handleImageChange(index, e.target.value); }}
           />
-          <IconButton onClick={() => handleRemoveImage(index)}>
+          <IconButton onClick={() => { handleRemoveImage(index); }}>
             <RemoveIcon />
           </IconButton>
         </Box>
@@ -75,12 +75,12 @@ const AddCarouselPage = (): React.JSX.Element => {
         <Button variant="contained" color="primary" onClick={handleSave}>
           Save Carousel
         </Button>
-        <Button variant="outlined" onClick={() => router.back()}>
+        <Button variant="outlined" onClick={() => { router.back(); }}>
           Cancel
         </Button>
       </Stack>
     </Container>
   );
-};
+}
 
 export default AddCarouselPage;

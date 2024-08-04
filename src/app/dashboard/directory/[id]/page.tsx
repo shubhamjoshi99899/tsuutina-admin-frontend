@@ -17,7 +17,7 @@ interface DirectoryItem {
   iframe: string;
 }
 
-const DirectoryDetailsPage = (): React.JSX.Element => {
+function DirectoryDetailsPage(): React.JSX.Element {
   const router = useRouter();
   const { id } = useParams();
   console.log(id);
@@ -71,12 +71,12 @@ const DirectoryDetailsPage = (): React.JSX.Element => {
       <Button
         variant="contained"
         sx={{ mt: 3 }}
-        onClick={() => router.push(`/dashboard/directory/edit/${directory._id}`)}
+        onClick={() => { router.push(`/dashboard/directory/edit/${directory._id}`); }}
       >
         Edit
       </Button>
     </Container>
   );
-};
+}
 
 export default DirectoryDetailsPage;

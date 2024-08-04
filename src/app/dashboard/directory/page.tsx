@@ -17,7 +17,7 @@ interface Directory {
   iframe: string;
 }
 
-const DirectoryListPage = () => {
+function DirectoryListPage() {
   const router = useRouter();
   const [directories, setDirectories] = useState<Directory[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -44,11 +44,11 @@ const DirectoryListPage = () => {
       <Typography variant="h4" sx={{ mb: 3 }}>
         Directories
       </Typography>
-      {error && <Typography color="error">{error}</Typography>}
+      {error ? <Typography color="error">{error}</Typography> : null}
       <Button
         variant="contained"
         color="primary"
-        onClick={() => router.push('/dashboard/directory/create')}
+        onClick={() => { router.push('/dashboard/directory/create'); }}
         sx={{ mb: 3 }}
       >
         Create New Directory
@@ -64,7 +64,7 @@ const DirectoryListPage = () => {
                 <Typography variant="body1">{directory.website}</Typography>
                 <Typography variant="body1">{directory.hours}</Typography>
               </Box>
-              <Button variant="outlined" onClick={() => router.push(`/dashboard/directory/${directory._id}`)}>
+              <Button variant="outlined" onClick={() => { router.push(`/dashboard/directory/${directory._id}`); }}>
                 View / Edit
               </Button>
             </ListItem>
@@ -73,6 +73,6 @@ const DirectoryListPage = () => {
       </List>
     </Container>
   );
-};
+}
 
 export default DirectoryListPage;

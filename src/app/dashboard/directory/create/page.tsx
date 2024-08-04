@@ -7,7 +7,7 @@ import { Container, Typography } from '@mui/material';
 
 import DirectoryForm from '@/components/dashboard/directory/directory-form';
 
-const CreateDirectoryPage = () => {
+function CreateDirectoryPage() {
   const router = useRouter();
   const [error, setError] = React.useState<string | null>(null);
 
@@ -39,10 +39,10 @@ const CreateDirectoryPage = () => {
       <Typography variant="h4" sx={{ mb: 3 }}>
         Create Directory
       </Typography>
-      {error && <Typography color="error">{error}</Typography>}
+      {error ? <Typography color="error">{error}</Typography> : null}
       <DirectoryForm onSubmit={(data: any) => handleCreate(data)} />
     </Container>
   );
-};
+}
 
 export default CreateDirectoryPage;

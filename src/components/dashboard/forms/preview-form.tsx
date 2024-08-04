@@ -15,10 +15,10 @@ import {
   FormControl,
   FormGroup,
 } from '@mui/material';
-import apiService, { Form } from '@/services/api-service';
+import apiService, { type Form } from '@/services/api-service';
 import { useParams, useRouter } from 'next/navigation';
 
-const PreviewFormComponent = () => {
+function PreviewFormComponent() {
   const params = useParams();
   const router = useRouter();
   const [form, setForm] = useState<Form | null>(null);
@@ -71,7 +71,7 @@ const PreviewFormComponent = () => {
             <TextField
               fullWidth
               value={responses[field._id] || ''}
-              onChange={(e) => handleChange(field._id, e.target.value)}
+              onChange={(e) => { handleChange(field._id, e.target.value); }}
               required={field.required}
             />
           )}
@@ -79,7 +79,7 @@ const PreviewFormComponent = () => {
             <Select
               fullWidth
               value={responses[field._id] || ''}
-              onChange={(e) => handleChange(field._id, e.target.value)}
+              onChange={(e) => { handleChange(field._id, e.target.value); }}
               required={field.required}
             >
               {field.options.map((option: any, index: number) => (
@@ -116,7 +116,7 @@ const PreviewFormComponent = () => {
             <FormControl component="fieldset">
               <RadioGroup
                 value={responses[field._id] || ''}
-                onChange={(e) => handleChange(field._id, e.target.value)}
+                onChange={(e) => { handleChange(field._id, e.target.value); }}
               >
                 {field.options.map((option: any, index: number) => (
                   <FormControlLabel
@@ -136,6 +136,6 @@ const PreviewFormComponent = () => {
       </Button>
     </Container>
   );
-};
+}
 
 export default PreviewFormComponent;

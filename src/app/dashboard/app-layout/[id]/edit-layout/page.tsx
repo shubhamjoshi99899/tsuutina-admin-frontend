@@ -33,7 +33,7 @@ interface Layout {
   isCurrentlySet: boolean;
 }
 
-const EditLayoutPage = (): React.JSX.Element => {
+function EditLayoutPage(): React.JSX.Element {
   const router = useRouter();
   const { id } = useParams();
   const [name, setName] = useState<string>('');
@@ -115,7 +115,7 @@ const EditLayoutPage = (): React.JSX.Element => {
       <Typography variant="h4" sx={{ mb: 2 }}>
         Edit Layout
       </Typography>
-      <TextField margin="dense" label="Layout Name" fullWidth value={name} onChange={(e) => setName(e.target.value)} />
+      <TextField margin="dense" label="Layout Name" fullWidth value={name} onChange={(e) => { setName(e.target.value); }} />
       {routes.map((route, index) => (
         <Box key={index} sx={{ mb: 2, p: 2, border: '1px solid #ccc', borderRadius: '4px' }}>
           <TextField
@@ -123,24 +123,24 @@ const EditLayoutPage = (): React.JSX.Element => {
             label="Route Name"
             fullWidth
             value={route.name}
-            onChange={(e) => handleRouteChange(index, 'name', e.target.value)}
+            onChange={(e) => { handleRouteChange(index, 'name', e.target.value); }}
           />
           <TextField
             margin="dense"
             label="Route Path"
             fullWidth
             value={route.path}
-            onChange={(e) => handleRouteChange(index, 'path', e.target.value)}
+            onChange={(e) => { handleRouteChange(index, 'path', e.target.value); }}
           />
           <TextField
             margin="dense"
             label="Route Icon"
             fullWidth
             value={route.icon}
-            onChange={(e) => handleRouteChange(index, 'icon', e.target.value)}
+            onChange={(e) => { handleRouteChange(index, 'icon', e.target.value); }}
           />
           <Stack direction="row" spacing={1}>
-            <IconButton onClick={() => confirmDelete(index)}>
+            <IconButton onClick={() => { confirmDelete(index); }}>
               <RemoveIcon />
             </IconButton>
           </Stack>
@@ -153,7 +153,7 @@ const EditLayoutPage = (): React.JSX.Element => {
         <Button variant="contained" color="primary" onClick={handleSave}>
           Save
         </Button>
-        <Button variant="outlined" onClick={() => router.back()}>
+        <Button variant="outlined" onClick={() => { router.back(); }}>
           Cancel
         </Button>
       </Stack>
@@ -175,6 +175,6 @@ const EditLayoutPage = (): React.JSX.Element => {
       </Dialog>
     </Box>
   );
-};
+}
 
 export default EditLayoutPage;
