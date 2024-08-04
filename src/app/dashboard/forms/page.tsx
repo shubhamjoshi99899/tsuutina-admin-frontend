@@ -122,7 +122,7 @@ useEffect(() => {
       </Stack>
       <Grid container spacing={3}>
         {forms?.map((form) => (
-          <Grid item xs={12} md={6} lg={12}>
+          <Grid  key ={form._id} item xs={12} md={6} lg={12}>
             <Card sx={{border: form.isActive ? '1px solid green' : 'none', background: form.isActive ? '#F5FFFA' : '#FFF0F5'}}>
               <CardContent>
                 <Stack direction="row" justifyContent="space-between" alignItems="center">

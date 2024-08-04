@@ -71,7 +71,7 @@ function DirectoryDetailsPage(): React.JSX.Element {
       <Button
         variant="contained"
         sx={{ mt: 3 }}
-        onClick={() => { router.push(`/dashboard/directory/edit/${directory._id}`); }}
+        onClick={() => { router.push(`/dashboard/directory/${directory._id}/edit`); }}
       >
         Edit
       </Button>
